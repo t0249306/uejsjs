@@ -1,0 +1,451 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>be1.ru</title>
+</head>
+<body>
+<p>&lt;!DOCTYPE html&gt;</p>
+
+<p>&lt;html lang=&quot;ru&quot;&gt;</p>
+
+<p>&lt;head&gt;</p>
+
+<p>&nbsp; &nbsp; &lt;meta charset=&quot;UTF-8&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &lt;title&gt;EcoSun Tech - ЭкоМониторинг&lt;/title&gt;</p>
+
+<p>&nbsp; &nbsp; &lt;script src=&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;&gt;&lt;/script&gt;</p>
+
+<p>&nbsp; &nbsp; &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &lt;style&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; :root {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --primary: #28a745;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --bg: #f4f7f6;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --sidebar: #1f2937;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --text-dark: #333;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --card-bg: #fff;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --danger: #dc3545;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --warning: #ffc107;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --info: #17a2b8;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; * { margin: 0; padding: 0; box-sizing: border-box; font-family: &#39;Segoe UI&#39;, Tahoma, Geneva, Verdana, sans-serif; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; body { display: flex; height: 100vh; background-color: var(--bg); color: var(--text-dark); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; /* Sidebar */</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .sidebar { width: 250px; background-color: var(--sidebar); color: white; display: flex; flex-direction: column; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .logo { padding: 20px; font-size: 20px; font-weight: bold; background: #111827; border-bottom: 1px solid #374151; display: flex; align-items: center; gap: 10px; color: var(--primary); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .menu { list-style: none; padding-top: 20px; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .menu li { padding: 15px 20px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .menu li:hover, .menu li.active { background-color: var(--primary); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; /* Main Content */</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .header { background: var(--card-bg); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .content { padding: 30px; display: none; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .content.active { display: block; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; /* Cards */</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .card { background: var(--card-bg); padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .card.warning { border-top-color: var(--warning); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .card.danger { border-top-color: var(--danger); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .card h3 { font-size: 14px; color: #666; margin-bottom: 10px; display: flex; justify-content: space-between; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .card .value { font-size: 28px; font-weight: bold; margin-bottom: 5px; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .card .pdk { font-size: 12px; color: #888; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .card i { font-size: 20px; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; /* Charts layout */</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .chart-container { background: var(--card-bg); padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .chart-container h3 { margin-bottom: 15px; font-size: 16px; color: #444; }</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; /* Sensors List styling */</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .sensor-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .sensor-list { background: var(--card-bg); border-radius: 10px; padding: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .sensor-item { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; border-left: 3px solid transparent; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .sensor-item:hover { background: #f8f9fa; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .sensor-item.active-sensor { border-left-color: var(--primary); background: #f0fdf4; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .sensor-item strong { display: block; margin-bottom: 5px; }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; .sensor-item span { font-size: 12px; color: #666; }</p>
+
+<p>&nbsp; &nbsp; &lt;/style&gt;</p>
+
+<p>&lt;/head&gt;</p>
+
+<p>&lt;body&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &lt;div class=&quot;sidebar&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;logo&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;i class=&quot;fa-solid fa-leaf&quot;&gt;&lt;/i&gt; EcoSun Tech</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;ul class=&quot;menu&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li class=&quot;active&quot; onclick=&quot;switchTab(&#39;dashboard&#39;, this)&quot;&gt;&lt;i class=&quot;fa-solid fa-chart-line&quot;&gt;&lt;/i&gt; Панель мониторинга&lt;/li&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li onclick=&quot;switchTab(&#39;sensors&#39;, this)&quot;&gt;&lt;i class=&quot;fa-solid fa-microchip&quot;&gt;&lt;/i&gt; Датчики&lt;/li&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;&lt;i class=&quot;fa-solid fa-cogs&quot;&gt;&lt;/i&gt; Оборудование&lt;/li&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;&lt;i class=&quot;fa-solid fa-file-alt&quot;&gt;&lt;/i&gt; Отчеты&lt;/li&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/ul&gt;</p>
+
+<p>&nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &lt;div class=&quot;main&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;header&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h2&gt;Система экологического контроля&lt;/h2&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id=&quot;clock&quot; style=&quot;font-weight: bold; color: #555;&quot;&gt;&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div id=&quot;dashboard&quot; class=&quot;content active&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;cards&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;&lt;span&gt;CO2 (Углекислый газ)&lt;/span&gt; &lt;i class=&quot;fa-solid fa-wind&quot; style=&quot;color:var(--primary)&quot;&gt;&lt;/i&gt;&lt;/h3&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;value&quot;&gt;340.5 &lt;span style=&quot;font-size:16px&quot;&gt;мг/м&sup3;&lt;/span&gt;&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;pdk&quot;&gt;ПДК: 400 мг/м&sup3; (Норма)&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;&lt;span&gt;SO2 (Диоксид серы)&lt;/span&gt; &lt;i class=&quot;fa-solid fa-cloud&quot; style=&quot;color:var(--info)&quot;&gt;&lt;/i&gt;&lt;/h3&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;value&quot;&gt;42.1 &lt;span style=&quot;font-size:16px&quot;&gt;мкг/м&sup3;&lt;/span&gt;&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;pdk&quot;&gt;ПДК: 50 мг/м&sup3; (Норма)&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card warning&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;&lt;span&gt;NOx (Оксиды азота)&lt;/span&gt; &lt;i class=&quot;fa-solid fa-smog&quot; style=&quot;color:var(--warning)&quot;&gt;&lt;/i&gt;&lt;/h3&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;value&quot;&gt;48.9 &lt;span style=&quot;font-size:16px&quot;&gt;мкг/м&sup3;&lt;/span&gt;&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;pdk&quot;&gt;ПДК: 50 мкг/м&sup3; (Предупреждение)&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card danger&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;&lt;span&gt;Взвеси кремния&lt;/span&gt; &lt;i class=&quot;fa-solid fa-triangle-exclamation&quot; style=&quot;color:var(--danger)&quot;&gt;&lt;/i&gt;&lt;/h3&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;value&quot;&gt;12.4 &lt;span style=&quot;font-size:16px&quot;&gt;мг/л&lt;/span&gt;&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;pdk&quot;&gt;ПДК: 10 мг/л (Превышение в стоках!)&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;charts&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;chart-container&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Динамика выбросов (последние 24 часа)&lt;/h3&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas id=&quot;lineChart&quot;&gt;&lt;/canvas&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;chart-container&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Энергия от своих панелей (кВт)&lt;/h3&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas id=&quot;barChart&quot;&gt;&lt;/canvas&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div id=&quot;sensors&quot; class=&quot;content&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;cards&quot; style=&quot;grid-template-columns: repeat(4, 1fr);&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card&quot; style=&quot;border-top-color: var(--primary); text-align: center;&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Всего датчиков&lt;/h3&gt;&lt;div class=&quot;value&quot;&gt;12&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card&quot; style=&quot;border-top-color: var(--primary); text-align: center;&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Активные&lt;/h3&gt;&lt;div class=&quot;value&quot;&gt;10&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card warning&quot; style=&quot;text-align: center;&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Предупреждения&lt;/h3&gt;&lt;div class=&quot;value&quot;&gt;1&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card danger&quot; style=&quot;text-align: center;&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Ошибки (Калибровка)&lt;/h3&gt;&lt;div class=&quot;value&quot;&gt;1&lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;sensor-grid&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;sensor-list&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;sensor-item active-sensor&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;Датчик CO2 #1 (Воздух)&lt;/strong&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span&gt;Цех сборки модулей&lt;/span&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;sensor-item&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;Датчик H2O #3 (Сток)&lt;/strong&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span&gt;Цех очистки пластин&lt;/span&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;sensor-item&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;Датчик температуры #5&lt;/strong&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span&gt;Серверная IT-отдела&lt;/span&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;chart-container&quot;&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;Датчик CO2 #1 - История (20 минут)&lt;/h3&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;p style=&quot;margin-bottom: 15px; color: #666;&quot;&gt;&lt;i class=&quot;fa-solid fa-location-dot&quot;&gt;&lt;/i&gt; Расположение: Цех сборки модулей | Статус: Активен&lt;/p&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;canvas id=&quot;sensorChart&quot;&gt;&lt;/canvas&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp; &nbsp; &lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &lt;script&gt;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; // Переключение вкладок</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; function switchTab(tabId, element) {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.querySelectorAll(&#39;.content&#39;).forEach(c =&gt; c.classList.remove(&#39;active&#39;));</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(tabId).classList.add(&#39;active&#39;);</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.querySelectorAll(&#39;.menu li&#39;).forEach(li =&gt; li.classList.remove(&#39;active&#39;));</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; element.classList.add(&#39;active&#39;);</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; // Часы</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; setInterval(() =&gt; {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const now = new Date();</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;clock&#39;).innerText = now.toLocaleTimeString(&#39;ru-RU&#39;);</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; }, 1000);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; // Настройка графиков Chart.js</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; const chartOptions = { responsive: true, maintainAspectRatio: false };</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; // График 1: Линейный (Дашборд)</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; new Chart(document.getElementById(&#39;lineChart&#39;), {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; type: &#39;line&#39;,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data: {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; labels: [&#39;14:00&#39;, &#39;16:00&#39;, &#39;18:00&#39;, &#39;20:00&#39;, &#39;22:00&#39;, &#39;00:00&#39;, &#39;02:00&#39;, &#39;04:00&#39;, &#39;06:00&#39;, &#39;08:00&#39;, &#39;10:00&#39;, &#39;12:00&#39;],</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; datasets: [</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { label: &#39;CO2&#39;, borderColor: &#39;#28a745&#39;, data: [320, 330, 310, 300, 290, 280, 280, 290, 310, 340, 350, 340], tension: 0.4 },</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { label: &#39;NOx&#39;, borderColor: &#39;#ffc107&#39;, data: [40, 45, 48, 42, 35, 30, 30, 35, 45, 49, 48, 45], tension: 0.4 }</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ]</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; options: chartOptions</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; });</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; // График 2: Столбчатый (Дашборд)</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; new Chart(document.getElementById(&#39;barChart&#39;), {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; type: &#39;bar&#39;,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data: {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; labels: [&#39;Пн&#39;, &#39;Вт&#39;, &#39;Ср&#39;, &#39;Чт&#39;, &#39;Пт&#39;, &#39;Сб&#39;, &#39;Вс&#39;],</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; datasets: [{</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label: &#39;Выработано энергии&#39;,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; backgroundColor: &#39;#17a2b8&#39;,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data: [120, 150, 140, 160, 130, 90, 85]</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }]</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; options: chartOptions</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; });</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; // График 3: Линейный (Датчики)</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; new Chart(document.getElementById(&#39;sensorChart&#39;), {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; type: &#39;line&#39;,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data: {</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; labels: [&#39;-20м&#39;, &#39;-18м&#39;, &#39;-16м&#39;, &#39;-14м&#39;, &#39;-12м&#39;, &#39;-10м&#39;, &#39;-8м&#39;, &#39;-6м&#39;, &#39;-4м&#39;, &#39;-2м&#39;, &#39;Сейчас&#39;],</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; datasets: [{</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label: &#39;Уровень CO2&#39;,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; borderColor: &#39;#007bff&#39;,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; backgroundColor: &#39;rgba(0, 123, 255, 0.1)&#39;,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fill: true,</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+
+<p>&nbsp; &nbsp; data: [330, 335, 325, 340, 345, 350, 342, 338, 340, 341, 340.5],</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tension: 0.4</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }]</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; options: chartOptions</p>
+
+<p>&nbsp; &nbsp; &nbsp; &nbsp; });</p>
+
+<p>&nbsp; &nbsp; &lt;/script&gt;</p>
+
+<p>&lt;/body&gt;</p>
+
+<p>&lt;/html&gt;</p>
+</body>
+</html>
